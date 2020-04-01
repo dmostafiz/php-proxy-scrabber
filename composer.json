@@ -14,5 +14,6 @@
             "simple_html_dom.php"
         ]
     },
-    "require": {}
+    "require": {},
+    "license": "MIT"
 }
