@@ -16,7 +16,7 @@ class proxyScrabber{
         $this->pwd = $password;
     }
     
-    private function calculation()
+    public function getResult()
     {
         $text = $this->text;
         $proxies = $this->proxies; 
@@ -95,58 +95,17 @@ class proxyScrabber{
         // this will contain all the data
         $data = [];
 
-        for($i = 0; $i < count($contentTitle); $i++ )
+        for($i = 0; $i <= count($contentTitle); $i++ )
         {
-            $data[] = [
-                    'title' => $contentTitle[$i],
-                    'url' => $contentLink[$i],
-                    'text' => $contentText[$i],
-                    'percent' => $percent[$i],
-                ];
+            $data[$i] = [
+                            'title' => $contentTitle[$i],
+                            'url' => $contentLink[$i],
+                            'text' => $contentText[$i],
+                            'percent' => $percent[$i],
+                        ];
         }
 
         return $data;
     }
 
-    public function getResult()
-    {
-        $results = $this->calculation();
-        
-        (int) $percents = 0;
-        
-        // Adding percentage from each results
-        foreach($results as $item)
-        {
-            $percents += (int) $item['percent'];
-        }
-
-        //Count plagiaris / and unique contents
-        if(count($results))
-        {
-            $plagiarism = (int) round( $percents / count($results), 0 );
-            $unique = 100 - $plagiarism;
-        }
-        else 
-        {
-            $plagiarism = 0;
-            $unique = 100;
-        }
-
-        $data = [
-            'results' => $results,
-            'resultCount' => count($results),
-            'plagiarism' => $plagiarism,
-            'unique' => $unique,
-        ];
-        
-
-        return $data;
-        
-    }
 }
-
-
-
-
-
-
